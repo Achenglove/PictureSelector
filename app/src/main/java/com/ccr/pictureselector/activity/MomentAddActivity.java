@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -199,11 +200,14 @@ public class MomentAddActivity extends CCRPPToolbarActivity implements EasyPermi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CHOOSE_PHOTO) {
             if (mSingleChoiceCb.isChecked()) {
+                Log.d("Acheng","=========3==========");
                 mPhotosSnpl.setData(CCRPhotoPickerActivity.getSelectedImages(data));
             } else {
+                Log.d("Acheng","=========1==========");
                 mPhotosSnpl.addMoreData(CCRPhotoPickerActivity.getSelectedImages(data));
             }
         } else if (requestCode == REQUEST_CODE_PHOTO_PREVIEW) {
+            Log.d("Acheng","=========2==========");
             mPhotosSnpl.setData(CCRPhotoPickerPreviewActivity.getSelectedImages(data));
         }
     }

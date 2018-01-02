@@ -23,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.ViewStubCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.ccr.achenglibrary.R;
@@ -42,6 +43,7 @@ public abstract class CCRPPToolbarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
 

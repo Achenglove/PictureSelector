@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -125,18 +126,19 @@ public class MomentListActivity extends CCRPPToolbarActivity implements EasyPerm
         }
 
         // 保存图片的目录，改成你自己要保存图片的目录。如果不传递该参数的话就不会显示右上角的保存按钮
-        File downloadDir = new File(Environment.getExternalStorageDirectory(), "BGAPhotoPickerDownload");
+        File downloadDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/ichuangqi/img");
+
+
+
 
         String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
             if (mCurrentClickNpl.getItemCount() == 1) {
                 // 预览单张图片
-
-                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getCurrentClickItem()));
+                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getCurrentClickItem(), true,false));
             } else if (mCurrentClickNpl.getItemCount() > 1) {
                 // 预览多张图片
-
-                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getData(), mCurrentClickNpl.getCurrentClickItemPosition()));
+                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getData(), mCurrentClickNpl.getCurrentClickItemPosition(), true,false));
             }
         } else {
             EasyPermissions.requestPermissions(this, "图片预览需要以下权限:\n\n1.访问设备上的照片", REQUEST_CODE_PERMISSION_PHOTO_PREVIEW, perms);

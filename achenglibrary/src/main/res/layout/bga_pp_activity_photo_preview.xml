@@ -1,7 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ccr.achenglibrary.photopicker.widget.CCRHackyViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/hvp_photo_preview_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bga_pp_activity_bg"
-    android:overScrollMode="never" />
+    android:layout_height="match_parent">
+
+    <com.ccr.achenglibrary.photopicker.widget.CCRHackyViewPager
+        android:id="@+id/hvp_photo_preview_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bga_pp_activity_bg"
+        android:overScrollMode="never" />
+
+    <RelativeLayout
+        android:clickable="true"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent">
+
+        <TextView
+            android:background="@color/bga_pp_activity_bg"
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/number_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="1/1"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="#FFF" />
+    </RelativeLayout>
+
+</RelativeLayout>

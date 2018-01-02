@@ -18,8 +18,10 @@ package com.ccr.achenglibrary.photopicker.adapter;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ccr.achenglibrary.R;
 import com.ccr.achenglibrary.photopicker.imageloader.CCRImage;
@@ -73,9 +75,14 @@ public class CCRPhotoPageAdapter extends PagerAdapter {
                 }
             }
         });
-
+        photoViewAttacher.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(mActivity, "长按", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
         CCRImage.display(imageView, R.mipmap.bga_pp_ic_holder_dark, mPreviewImages.get(position), CCRPhotoPickerUtil.getScreenWidth(), CCRPhotoPickerUtil.getScreenHeight());
-
         return imageView;
     }
 

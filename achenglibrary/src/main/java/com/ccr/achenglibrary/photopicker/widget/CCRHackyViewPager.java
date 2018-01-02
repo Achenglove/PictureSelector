@@ -21,7 +21,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 /**
  * 在此写用途
- *
+ * 自定义ViewPager
  * @Author: Acheng
  * @Email: 345887272@qq.com
  * @Date: 2017-09-22 16:47

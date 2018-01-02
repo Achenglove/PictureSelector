@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_photo_preview_download"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -13,6 +14,14 @@
         android:paddingLeft="@dimen/bga_pp_size_level3"
         android:paddingRight="@dimen/bga_pp_size_level3"
         android:src="@mipmap/bga_pp_ic_download" />
+    <TextView
+        android:paddingRight="@dimen/bga_pp_size_level3"
+        android:textColor="#FFFF"
+        android:gravity="center"
+        android:text="保存"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/tv_photo_preview_title"
