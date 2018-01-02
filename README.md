@@ -7,7 +7,7 @@
 
 ```Acheng
 dependencies {
-    compile 'com.github.Achenglove:MPictureSelector:v1.0'
+    compile 'com.github.Achenglove:PictureSelector:v1.0.1'
 }
 ```
 
