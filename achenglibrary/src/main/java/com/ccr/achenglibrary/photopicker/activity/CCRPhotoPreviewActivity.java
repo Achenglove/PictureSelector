@@ -67,6 +67,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
     private static final String EXTRA_PHOTO_PATH = "EXTRA_PHOTO_PATH";
     private static final String CLICK_CLOSE = "CLICK_CLOSE";
     private static final String IS_SHARE = "IS_SHARE";
+    private static final String IS_SHOW_SAVE = "IS_SHOW_SAVE";
 
     private TextView mTitleTv;
     private TextView numberText;
@@ -83,6 +84,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
     private boolean mIsHidden = false;
     private boolean isClickClose = false;//是否单击图片关闭预览
     private boolean isShare = false;//是否分享
+    private boolean isSave = false;//是否显示保存按钮
     private CCRSavePhotoTask mSavePhotoTask;
     private ArrayList<String> previewImages;//图片集合
 
@@ -100,9 +102,10 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
      * @param currentPosition 当前预览图片的位置
      * @param clickClose      单击图片是否关闭图片预览功能
      * @param isShare      是否显示分享按钮
+     * @param isSave      是否显示保存按钮
      * @return
      */
-    public static Intent newIntent(Context context, File saveImgDir, ArrayList<String> previewImages, int currentPosition, boolean clickClose,boolean isShare) {
+    public static Intent newIntent(Context context, File saveImgDir, ArrayList<String> previewImages, int currentPosition, boolean clickClose,boolean isShare,boolean isSave) {
         Intent intent = new Intent(context, CCRPhotoPreviewActivity.class);
         intent.putExtra(EXTRA_SAVE_IMG_DIR, saveImgDir);
         intent.putStringArrayListExtra(EXTRA_PREVIEW_IMAGES, previewImages);
@@ -110,6 +113,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         intent.putExtra(EXTRA_IS_SINGLE_PREVIEW, false);
         intent.putExtra(CLICK_CLOSE, clickClose);
         intent.putExtra(IS_SHARE, isShare);
+        intent.putExtra(IS_SHOW_SAVE, isSave);
         return intent;
     }
 
@@ -123,7 +127,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
      * @param isShare 是否显示分享按钮
      * @return
      */
-    public static Intent newIntent(Context context, File saveImgDir, String photoPath, boolean clickClose,boolean isShare) {
+    public static Intent newIntent(Context context, File saveImgDir, String photoPath, boolean clickClose,boolean isShare,boolean isSave) {
         Intent intent = new Intent(context, CCRPhotoPreviewActivity.class);
         intent.putExtra(EXTRA_SAVE_IMG_DIR, saveImgDir);
         intent.putExtra(EXTRA_PHOTO_PATH, photoPath);
@@ -131,6 +135,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         intent.putExtra(EXTRA_IS_SINGLE_PREVIEW, true);
         intent.putExtra(CLICK_CLOSE, clickClose);
         intent.putExtra(IS_SHARE, isShare);
+        intent.putExtra(IS_SHOW_SAVE, isSave);
         return intent;
     }
 
@@ -176,6 +181,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         mSaveImgDir = (File) getIntent().getSerializableExtra(EXTRA_SAVE_IMG_DIR);
         isClickClose = getIntent().getBooleanExtra(CLICK_CLOSE, false);
         isShare = getIntent().getBooleanExtra(IS_SHARE, false);
+        isSave = getIntent().getBooleanExtra(IS_SHOW_SAVE, false);
         if(!isShare){
             shareButton.setVisibility(View.INVISIBLE);
         }
@@ -227,12 +233,16 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
                 }
             }
         });
+        //根据保存图片路径地址是否为空来判断是否显示保存功能
+//        if (mSaveImgDir == null) {
+//            mDownloadIv.setVisibility(View.INVISIBLE);
+//            saveButton.setVisibility(View.INVISIBLE);
+//        }
 
-        if (mSaveImgDir == null) {
+        if (!isSave) {
             mDownloadIv.setVisibility(View.INVISIBLE);
             saveButton.setVisibility(View.INVISIBLE);
         }
-
         renderTitleTv();
 
         return true;
