@@ -59,7 +59,7 @@ import java.util.ArrayList;
  * @Version: V1.0 <描述当前版本功能>
  */
 
-public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements PhotoViewAttacher.OnViewTapListener, CCRAsyncTask.Callback<Void> {
+public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements PhotoViewAttacher.OnViewTapListener, CCRAsyncTask.Callback<Void>,CCRPhotoPageAdapter.LongClickListener {
     private static final String EXTRA_SAVE_IMG_DIR = "EXTRA_SAVE_IMG_DIR";
     private static final String EXTRA_PREVIEW_IMAGES = "EXTRA_PREVIEW_IMAGES";
     private static final String EXTRA_CURRENT_POSITION = "EXTRA_CURRENT_POSITION";
@@ -192,7 +192,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         }
 
         int currentPosition = getIntent().getIntExtra(EXTRA_CURRENT_POSITION, 0);
-        mPhotoPageAdapter = new CCRPhotoPageAdapter(this, this, previewImages);
+        mPhotoPageAdapter = new CCRPhotoPageAdapter(this, this, previewImages,this);
         mContentHvp.setAdapter(mPhotoPageAdapter);
         mContentHvp.setCurrentItem(currentPosition);
 //        Log.d("Acheng","当前位置:"+previewImages.get(currentPosition));
@@ -361,5 +361,11 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
             mSavePhotoTask = null;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        savePic();
+        return true;
     }
 }

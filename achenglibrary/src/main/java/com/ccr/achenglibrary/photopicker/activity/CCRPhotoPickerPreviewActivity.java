@@ -48,7 +48,7 @@ import java.util.ArrayList;
  * @Version: V1.0 <描述当前版本功能>
  */
 
-public class CCRPhotoPickerPreviewActivity extends CCRPPToolbarActivity implements PhotoViewAttacher.OnViewTapListener {
+public class CCRPhotoPickerPreviewActivity extends CCRPPToolbarActivity implements PhotoViewAttacher.OnViewTapListener ,CCRPhotoPageAdapter.LongClickListener{
     private static final String EXTRA_PREVIEW_IMAGES = "EXTRA_PREVIEW_IMAGES";
     private static final String EXTRA_SELECTED_IMAGES = "EXTRA_SELECTED_IMAGES";
     private static final String EXTRA_MAX_CHOOSE_COUNT = "EXTRA_MAX_CHOOSE_COUNT";
@@ -194,7 +194,7 @@ public class CCRPhotoPickerPreviewActivity extends CCRPPToolbarActivity implemen
         mTopRightBtnText = getString(R.string.bga_pp_confirm);
 
 
-        mPhotoPageAdapter = new CCRPhotoPageAdapter(this, this, previewImages);
+        mPhotoPageAdapter = new CCRPhotoPageAdapter(this, this, previewImages,this);
         mContentHvp.setAdapter(mPhotoPageAdapter);
         mContentHvp.setCurrentItem(currentPosition);
 
@@ -320,4 +320,8 @@ public class CCRPhotoPickerPreviewActivity extends CCRPPToolbarActivity implemen
         }
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
+    }
 }

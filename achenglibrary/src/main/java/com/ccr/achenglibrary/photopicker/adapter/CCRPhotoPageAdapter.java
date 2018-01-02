@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ccr.achenglibrary.R;
+import com.ccr.achenglibrary.photopicker.activity.CCRPhotoPreviewActivity;
 import com.ccr.achenglibrary.photopicker.imageloader.CCRImage;
 import com.ccr.achenglibrary.photopicker.util.CCRBrowserPhotoViewAttacher;
 import com.ccr.achenglibrary.photopicker.util.CCRPhotoPickerUtil;
@@ -46,11 +47,13 @@ public class CCRPhotoPageAdapter extends PagerAdapter {
     private ArrayList<String> mPreviewImages;
     private PhotoViewAttacher.OnViewTapListener mOnViewTapListener;
     private Activity mActivity;
+    LongClickListener mLongClickListener;
 
-    public CCRPhotoPageAdapter(Activity activity, PhotoViewAttacher.OnViewTapListener onViewTapListener, ArrayList<String> previewImages) {
+    public CCRPhotoPageAdapter(Activity activity, PhotoViewAttacher.OnViewTapListener onViewTapListener, ArrayList<String> previewImages,LongClickListener pLongClickListener) {
         mOnViewTapListener = onViewTapListener;
         mPreviewImages = previewImages;
         mActivity = activity;
+        this.mLongClickListener=pLongClickListener;
     }
 
     @Override
@@ -79,6 +82,9 @@ public class CCRPhotoPageAdapter extends PagerAdapter {
             @Override
             public boolean onLongClick(View v) {
 //                Toast.makeText(mActivity, "长按", Toast.LENGTH_SHORT).show();
+                if(mLongClickListener!=null){
+                    mLongClickListener.onLongClick(imageView);
+                }
                 return true;
             }
         });
@@ -98,5 +104,9 @@ public class CCRPhotoPageAdapter extends PagerAdapter {
 
     public String getItem(int position) {
         return mPreviewImages == null ? "" : mPreviewImages.get(position);
+    }
+
+    public interface LongClickListener{
+        boolean onLongClick(View v);
     }
 }
