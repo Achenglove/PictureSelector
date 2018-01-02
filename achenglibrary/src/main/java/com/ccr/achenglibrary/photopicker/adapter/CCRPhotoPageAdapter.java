@@ -78,7 +78,7 @@ public class CCRPhotoPageAdapter extends PagerAdapter {
         photoViewAttacher.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(mActivity, "长按", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mActivity, "长按", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
