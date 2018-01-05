@@ -21,6 +21,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.ccr.achenglibrary.R;
 
@@ -66,10 +69,9 @@ public class CCRSavePhotoTask extends CCRAsyncTask<Void, Void> {
             mBitmap.get().compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
 
-            // 通知图库更新
-            mContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(mNewFile)));
-
             CCRPhotoPickerUtil.showSafe(mContext.getString(R.string.bga_pp_save_img_success_folder, mNewFile.getParentFile().getAbsolutePath()));
+            // 通知图库更新
+            updateImg(mNewFile);
         } catch (Exception e) {
             CCRPhotoPickerUtil.showSafe(R.string.bga_pp_save_img_failure);
         } finally {
@@ -97,5 +99,21 @@ public class CCRSavePhotoTask extends CCRAsyncTask<Void, Void> {
             mBitmap = null;
         }
     }
+
+    /**
+     * 更新图片
+     *
+     * @param file
+     */
+    private void updateImg(File file) {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(file);
+        intent.setData(uri);
+        mContext.sendBroadcast(intent);//这个广播的目的就是更新图库，发了这个广播进入相册就可以找到你保存的图片了！，记得要传你更新的file
+        Toast.makeText(mContext, "更新啦", Toast.LENGTH_SHORT).show();
+        Log.d("Acheng", "更新啦");
+    }
+
+
 
 }

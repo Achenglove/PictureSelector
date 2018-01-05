@@ -126,7 +126,7 @@ public class MomentListActivity extends CCRPPToolbarActivity implements EasyPerm
         }
 
         // 保存图片的目录，改成你自己要保存图片的目录。如果不传递该参数的话就不会显示右上角的保存按钮
-        File downloadDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/ichuangqi/img");
+        File downloadDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/ichuangqi/创骐");
 
 
 
@@ -135,10 +135,10 @@ public class MomentListActivity extends CCRPPToolbarActivity implements EasyPerm
         if (EasyPermissions.hasPermissions(this, perms)) {
             if (mCurrentClickNpl.getItemCount() == 1) {
                 // 预览单张图片
-                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getCurrentClickItem(), true,false));
+                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getCurrentClickItem(), true,false,false));
             } else if (mCurrentClickNpl.getItemCount() > 1) {
                 // 预览多张图片
-                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getData(), mCurrentClickNpl.getCurrentClickItemPosition(), true,false));
+                startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getData(), mCurrentClickNpl.getCurrentClickItemPosition(), true,false,false));
             }
         } else {
             EasyPermissions.requestPermissions(this, "图片预览需要以下权限:\n\n1.访问设备上的照片", REQUEST_CODE_PERMISSION_PHOTO_PREVIEW, perms);

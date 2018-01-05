@@ -42,6 +42,7 @@ import com.ccr.achenglibrary.photopicker.listener.CCROnNoDoubleClickListener;
 import com.ccr.achenglibrary.photopicker.util.CCRAsyncTask;
 import com.ccr.achenglibrary.photopicker.util.CCRPhotoPickerUtil;
 import com.ccr.achenglibrary.photopicker.util.CCRSavePhotoTask;
+import com.ccr.achenglibrary.photopicker.util.MyUtilHelper;
 import com.ccr.achenglibrary.photopicker.widget.CCRHackyViewPager;
 import com.ccr.achenglibrary.photoview.PhotoViewAttacher;
 
@@ -148,7 +149,9 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         numberText = (TextView) findViewById(R.id.number_text);
         saveButton = (TextView) findViewById(R.id.save_button);
         shareButton = (TextView) findViewById(R.id.share_button);
-        mToolbar.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.GONE);//图片预览时隐藏导航栏
+        MyUtilHelper.hideBottomUIMenu(this);//进入图片预览界面隐藏虚拟按键
+
     }
 
     @Override
@@ -370,6 +373,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
             mSavePhotoTask.cancelTask();
             mSavePhotoTask = null;
         }
+        MyUtilHelper.showBottomUIMenu(this);//退出图片预览显示虚拟按键
         super.onDestroy();
     }
 
