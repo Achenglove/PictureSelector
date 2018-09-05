@@ -3,7 +3,16 @@ package com.ccr.achenglibrary.photopicker.util;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.os.IBinder;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
+
+import com.ccr.achenglibrary.R;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * 在此写用途
@@ -31,6 +40,69 @@ public class MyUtilHelper {
             View decorView = ((Activity) activity).getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+    /**
+     * 切换动画
+     */
+    public static void showAnimation(int type, boolean isShow, View view, Context context) {
+        Animation animation;
+        if (type == 1) {//上下
+            if (isShow) {
+                if (view.getVisibility() == View.GONE) {
+                    view.setVisibility(View.VISIBLE);
+                    animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
+                    view.startAnimation(animation);
+                }
+            } else {
+                if (view.getVisibility() == View.VISIBLE) {
+                    view.setVisibility(View.GONE);
+                    animation = AnimationUtils.loadAnimation(context, R.anim.slide_out_bottom);
+                    view.startAnimation(animation);
+                }
+            }
+        } else {//左右
+            if (isShow) {
+                if (view.getVisibility() == View.GONE) {
+                    view.setVisibility(View.VISIBLE);
+                    animation = AnimationUtils.loadAnimation(context, R.anim.slide_left_in);
+                    view.startAnimation(animation);
+                }
+            } else {
+                if (view.getVisibility() == View.VISIBLE) {
+                    view.setVisibility(View.GONE);
+                    animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_out);
+                    view.startAnimation(animation);
+                }
+            }
+        }
+    }
+
+    public static void releaseInputMethodManagerFocus(Activity paramActivity) {
+        if (paramActivity == null) return;
+        int count = 0;
+        while (true) {
+            //给个5次机会 省得无限循环
+            count++;
+            if (count == 5) return;
+            try {
+                InputMethodManager localInputMethodManager = (InputMethodManager) paramActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (localInputMethodManager != null) {
+                    Method localMethod = InputMethodManager.class.getMethod("windowDismissed", new Class[]{IBinder.class});
+                    if (localMethod != null) {
+                        localMethod.invoke(localInputMethodManager, new Object[]{paramActivity.getWindow().getDecorView().getWindowToken()});
+                    }
+                    Field mLastSrvView = InputMethodManager.class.getDeclaredField("mLastSrvView");
+                    if (mLastSrvView != null) {
+                        mLastSrvView.setAccessible(true);
+                        mLastSrvView.set(localInputMethodManager, null);
+                        return;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

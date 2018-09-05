@@ -49,5 +49,5 @@
             android:text="分享"
             android:textColor="#FFF" />
     </RelativeLayout>
-
+<include layout="@layout/save_image_layout"/>
 </RelativeLayout>

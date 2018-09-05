@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +61,7 @@ import java.util.ArrayList;
  * @Version: V1.0 <描述当前版本功能>
  */
 
-public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements PhotoViewAttacher.OnViewTapListener, CCRAsyncTask.Callback<Void>,CCRPhotoPageAdapter.LongClickListener {
+public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements PhotoViewAttacher.OnViewTapListener, CCRAsyncTask.Callback<Void>, CCRPhotoPageAdapter.LongClickListener {
     private static final String EXTRA_SAVE_IMG_DIR = "EXTRA_SAVE_IMG_DIR";
     private static final String EXTRA_PREVIEW_IMAGES = "EXTRA_PREVIEW_IMAGES";
     private static final String EXTRA_CURRENT_POSITION = "EXTRA_CURRENT_POSITION";
@@ -72,11 +73,12 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
 
     private TextView mTitleTv;
     private TextView numberText;
-    private TextView saveButton;
+    private TextView saveButton, save;
     private TextView shareButton;
     private ImageView mDownloadIv;
     private CCRHackyViewPager mContentHvp;
     private CCRPhotoPageAdapter mPhotoPageAdapter;
+    private RelativeLayout saveLayout;
 
     private boolean mIsSinglePreview;//判断是单张图片还是多张图片
 
@@ -102,11 +104,11 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
      * @param previewImages   当前预览的图片目录里的图片路径集合
      * @param currentPosition 当前预览图片的位置
      * @param clickClose      单击图片是否关闭图片预览功能
-     * @param isShare      是否显示分享按钮
-     * @param isSave      是否显示保存按钮
+     * @param isShare         是否显示分享按钮
+     * @param isSave          是否显示保存按钮
      * @return
      */
-    public static Intent newIntent(Context context, File saveImgDir, ArrayList<String> previewImages, int currentPosition, boolean clickClose,boolean isShare,boolean isSave) {
+    public static Intent newIntent(Context context, File saveImgDir, ArrayList<String> previewImages, int currentPosition, boolean clickClose, boolean isShare, boolean isSave) {
         Intent intent = new Intent(context, CCRPhotoPreviewActivity.class);
         intent.putExtra(EXTRA_SAVE_IMG_DIR, saveImgDir);
         intent.putStringArrayListExtra(EXTRA_PREVIEW_IMAGES, previewImages);
@@ -125,10 +127,10 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
      * @param saveImgDir 保存图片的目录，如果传null，则没有保存图片功能
      * @param photoPath  图片路径
      * @param clickClose 单击图片是否关闭图片预览功能
-     * @param isShare 是否显示分享按钮
+     * @param isShare    是否显示分享按钮
      * @return
      */
-    public static Intent newIntent(Context context, File saveImgDir, String photoPath, boolean clickClose,boolean isShare,boolean isSave) {
+    public static Intent newIntent(Context context, File saveImgDir, String photoPath, boolean clickClose, boolean isShare, boolean isSave) {
         Intent intent = new Intent(context, CCRPhotoPreviewActivity.class);
         intent.putExtra(EXTRA_SAVE_IMG_DIR, saveImgDir);
         intent.putExtra(EXTRA_PHOTO_PATH, photoPath);
@@ -149,6 +151,8 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         numberText = (TextView) findViewById(R.id.number_text);
         saveButton = (TextView) findViewById(R.id.save_button);
         shareButton = (TextView) findViewById(R.id.share_button);
+        save = (TextView) findViewById(R.id.save);
+        saveLayout = (RelativeLayout) findViewById(R.id.save_layout);
         mToolbar.setVisibility(View.GONE);//图片预览时隐藏导航栏
         MyUtilHelper.hideBottomUIMenu(this);//进入图片预览界面隐藏虚拟按键
 
@@ -177,6 +181,19 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
                 Toast.makeText(CCRPhotoPreviewActivity.this, "分享", Toast.LENGTH_SHORT).show();
             }
         });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtilHelper.showAnimation(1, false, saveLayout, CCRPhotoPreviewActivity.this);
+                savePic();
+            }
+        });
+        saveLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtilHelper.showAnimation(1, false, saveLayout, CCRPhotoPreviewActivity.this);
+            }
+        });
     }
 
     @Override
@@ -185,7 +202,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         isClickClose = getIntent().getBooleanExtra(CLICK_CLOSE, false);
         isShare = getIntent().getBooleanExtra(IS_SHARE, false);
         isSave = getIntent().getBooleanExtra(IS_SHOW_SAVE, false);
-        if(!isShare){
+        if (!isShare) {
             shareButton.setVisibility(View.INVISIBLE);
         }
         if (mSaveImgDir != null && !mSaveImgDir.exists()) {
@@ -201,7 +218,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         }
 
         int currentPosition = getIntent().getIntExtra(EXTRA_CURRENT_POSITION, 0);
-        mPhotoPageAdapter = new CCRPhotoPageAdapter(this, this, previewImages,this);
+        mPhotoPageAdapter = new CCRPhotoPageAdapter(this, this, previewImages, this);
         mContentHvp.setAdapter(mPhotoPageAdapter);
         mContentHvp.setCurrentItem(currentPosition);
 //        Log.d("Acheng","当前位置:"+previewImages.get(currentPosition));
@@ -225,7 +242,6 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
 
         mTitleTv = (TextView) actionView.findViewById(R.id.tv_photo_preview_title);
         mDownloadIv = (ImageView) actionView.findViewById(R.id.iv_photo_preview_download);
-
 
 
         mDownloadIv.setOnClickListener(new CCROnNoDoubleClickListener() {
@@ -282,7 +298,6 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
     }
 
 
-
     private void showTitleBar() {
         if (mToolbar != null) {
             ViewCompat.animate(mToolbar).translationY(0).setInterpolator(new DecelerateInterpolator(2)).setListener(new ViewPropertyAnimatorListenerAdapter() {
@@ -305,7 +320,9 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         }
     }
 
-
+    /**
+     * 保存图片
+     */
     private synchronized void savePic() {
         if (mSavePhotoTask != null) {
             return;
@@ -348,9 +365,10 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
 
     /**
      * 更新图片
+     *
      * @param file
      */
-    private void updateImg(File file){
+    private void updateImg(File file) {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri uri = Uri.fromFile(file);
         intent.setData(uri);
@@ -375,11 +393,12 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
         }
         MyUtilHelper.showBottomUIMenu(this);//退出图片预览显示虚拟按键
         super.onDestroy();
+        MyUtilHelper.releaseInputMethodManagerFocus(this);
     }
 
     @Override
     public boolean onLongClick(View v) {
-        savePic();
+        MyUtilHelper.showAnimation(1, true, saveLayout, this);
         return true;
     }
 }

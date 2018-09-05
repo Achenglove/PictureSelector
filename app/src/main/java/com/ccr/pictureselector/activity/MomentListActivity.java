@@ -136,9 +136,11 @@ public class MomentListActivity extends CCRPPToolbarActivity implements EasyPerm
             if (mCurrentClickNpl.getItemCount() == 1) {
                 // 预览单张图片
                 startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getCurrentClickItem(), true,false,false));
+                overridePendingTransition(0, 0);
             } else if (mCurrentClickNpl.getItemCount() > 1) {
                 // 预览多张图片
                 startActivity(CCRPhotoPreviewActivity.newIntent(this, mDownLoadableCb.isChecked() ? downloadDir : null, mCurrentClickNpl.getData(), mCurrentClickNpl.getCurrentClickItemPosition(), true,false,false));
+                overridePendingTransition(0, 0);
             }
         } else {
             EasyPermissions.requestPermissions(this, "图片预览需要以下权限:\n\n1.访问设备上的照片", REQUEST_CODE_PERMISSION_PHOTO_PREVIEW, perms);

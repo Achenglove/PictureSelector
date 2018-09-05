@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/save_layout"
+    android:layout_height="match_parent"
+    android:background="#90000000"
+    android:visibility="gone"
+    android:clickable="true"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/save"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:minHeight="60dp"
+        android:paddingLeft="15dp"
+        android:text="保存图片"
+        android:textColor="#901b0f0f"
+        android:textSize="16sp" />
+
+</RelativeLayout>
