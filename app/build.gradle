@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion ANDROID_BUILD_SDK_VERSION as int
-    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION as int
@@ -31,8 +31,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-//    compile 'com.github.Achenglove:MPictureSelector:v1.0'
-//    compile 'com.github.Achenglove:PictureSelector:v1.0'
-//    compile 'com.github.Achenglove:PictureSelector:v1.0.1'
+    //    compile 'com.github.Achenglove:MPictureSelector:v1.0'
+    //    compile 'com.github.Achenglove:PictureSelector:v1.0'
+    //    compile 'com.github.Achenglove:PictureSelector:v1.0.1'
     compile project(':achenglibrary')
 }
