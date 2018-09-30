@@ -129,6 +129,7 @@ public class CCRPhotoPickerActivity extends CCRPPToolbarActivity implements CCRO
         intent.putExtra(EXTRA_IMAGE_DIR, imageDir);
         intent.putExtra(EXTRA_MAX_CHOOSE_COUNT, maxChooseCount);
         intent.putStringArrayListExtra(EXTRA_SELECTED_IMAGES, selectedImages);
+//        intent.setType("video/*;image/*");// 相片类型
         intent.putExtra(EXTRA_PAUSE_ON_SCROLL, pauseOnScroll);
         return intent;
     }
@@ -232,7 +233,7 @@ public class CCRPhotoPickerActivity extends CCRPPToolbarActivity implements CCRO
             }
         });
 
-        mTitleTv.setText(R.string.bga_pp_all_image);
+        mTitleTv.setText(R.string.bga_pp_all_image);//所有图片
         if (mCurrentImageFolderModel != null) {
             mTitleTv.setText(mCurrentImageFolderModel.name);
         }
