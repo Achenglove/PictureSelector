@@ -19,14 +19,18 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.ccr.achenglibrary.photopicker.util.CCRPhotoPickerUtil;
 
 
@@ -44,14 +48,17 @@ public class CCRGlideImageLoader extends CCRImageLoader {
     public void display(final ImageView imageView, String path, @DrawableRes int loadingResId, @DrawableRes int failResId, int width, int height, final DisplayDelegate delegate) {
         final String finalPath = getPath(path);
         Activity activity = getActivity(imageView);
-        Glide.with(activity).load(finalPath).placeholder(loadingResId).error(failResId).override(width, height).dontAnimate().listener(new RequestListener<String, GlideDrawable>() {
+        RequestOptions options = new RequestOptions()
+                .placeholder(loadingResId).error(failResId).override(width, height).dontAnimate();
+        Glide.with(activity).load(finalPath).apply(options).listener(new RequestListener<Drawable>() {
             @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 return false;
             }
 
+
             @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                 if (delegate != null) {
                     delegate.onSuccess(imageView, finalPath);
                 }
@@ -63,16 +70,17 @@ public class CCRGlideImageLoader extends CCRImageLoader {
     @Override
     public void download(String path, final DownloadDelegate delegate) {
         final String finalPath = getPath(path);
-        Glide.with(CCRPhotoPickerUtil.sApp).load(finalPath).asBitmap().into(new SimpleTarget<Bitmap>() {
+
+        Glide.with(CCRPhotoPickerUtil.sApp).asBitmap().load(finalPath).into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 if (delegate != null) {
                     delegate.onSuccess(finalPath, resource);
                 }
             }
 
             @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
                 if (delegate != null) {
                     delegate.onFailed(finalPath);
                 }
