@@ -1,5 +1,6 @@
 package com.ccr.pictureselector.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 
 import com.ccr.achenglibrary.photopicker.activity.CCRPhotoPreviewActivity;
 import com.ccr.pictureselector.R;
+import com.ccr.pictureselector.second.SecondActivity;
+import com.ccr.pictureselector.second.SimpleActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -22,15 +25,18 @@ import java.util.ArrayList;
  * 在此写用途
  */
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageView mImageView;
     File downloadDir;
     ArrayList<String> imageList=new ArrayList<>();
     String mString;
+    Intent intent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+        findViewById(R.id.button1).setOnClickListener(this);
+        findViewById(R.id.button2).setOnClickListener(this);
         mImageView=(ImageView) findViewById(R.id.m_image);
         mString="http://img01.taopic.com/160117/318752-16011F9334648.jpg";
         imageList.add("http://img01.taopic.com/160117/318752-16011F9334648.jpg");
@@ -44,5 +50,19 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button1:
+                intent=new Intent(this,MomentListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button2:
+                intent=new Intent(this,SimpleActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

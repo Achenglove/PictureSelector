@@ -6,8 +6,26 @@
     android:orientation="vertical">
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/m_image"
         android:layout_width="100dp"
         android:layout_height="100dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="first" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="second" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -1,1 +1,1 @@
-include ':app', ':achenglibrary'
+include ':app', ':achenglibrary', ':picture_library', ':ucrop'

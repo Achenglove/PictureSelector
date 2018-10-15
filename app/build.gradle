@@ -9,6 +9,7 @@ android {
         targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION as int
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
+        multiDexEnabled true
     }
 
     dataBinding {
@@ -36,4 +37,18 @@ dependencies {
     //    compile 'com.github.Achenglove:PictureSelector:v1.0'
     //    compile 'com.github.Achenglove:PictureSelector:v1.0.1'
     compile project(':achenglibrary')
+    implementation project(':picture_library')
+    implementation project(':ucrop')
+
+    compile 'com.android.support:multidex:1.0.1'
+}
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.1.0'
+            }
+        }
+    }
 }
