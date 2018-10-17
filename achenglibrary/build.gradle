@@ -24,4 +24,5 @@ dependencies {
     provided 'com.squareup.picasso:picasso:2.5.2'
     provided 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     provided 'org.xutils:xutils:3.3.36'
+    implementation project(':picture_library')
 }

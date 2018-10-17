@@ -285,6 +285,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
     public void onViewTap(View view, float x, float y) {
         if (isClickClose) {
             finish();
+            overridePendingTransition(0, R.anim.a3);
         } else {
             if (System.currentTimeMillis() - mLastShowHiddenTime > 500) {
                 mLastShowHiddenTime = System.currentTimeMillis();
