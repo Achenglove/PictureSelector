@@ -61,7 +61,7 @@
                 android:id="@+id/picture_tv_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_style"
+                android:background="@drawable/ensure_button_style"
                 android:gravity="center|left"
                 android:paddingLeft="12dp"
                 android:paddingTop="6dp"

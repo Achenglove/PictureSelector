@@ -43,6 +43,7 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         iv_play.setOnClickListener(this);
         MyUtilHelper.hideBottomUIMenu(this);
         mVideoView.setOnClickListener(this);
+        findViewById(R.id.main_layout).setOnClickListener(this);
     }
 
 
@@ -99,12 +100,18 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.picture_left_back||id==R.id.video_view) {
+        if (id == R.id.picture_left_back) {
             finish();
             overridePendingTransition(0, R.anim.a3);
         } else if (id == R.id.iv_play) {
             mVideoView.start();
             iv_play.setVisibility(View.INVISIBLE);
+        }else if (id == R.id.video_view) {
+            finish();
+            overridePendingTransition(0, R.anim.a3);
+        }else if (id == R.id.main_layout) {
+            finish();
+            overridePendingTransition(0, R.anim.a3);
         }
     }
 
