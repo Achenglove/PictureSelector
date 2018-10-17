@@ -110,6 +110,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                         case 2:
                             // 预览视频
                             PictureSelector.create(SecondActivity.this).externalPictureVideo(media.getPath());
+                            overridePendingTransition(R.anim.a5, 0);
                             break;
                         case 3:
                             // 预览音频

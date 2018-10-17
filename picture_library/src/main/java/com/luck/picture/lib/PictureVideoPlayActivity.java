@@ -5,16 +5,21 @@ import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.VideoView;
+
+import com.luck.picture.lib.tools.MyUtilHelper;
 
 public class PictureVideoPlayActivity extends PictureBaseActivity implements MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
     private String video_path = "";
     private ImageView picture_left_back;
     private MediaController mMediaController;
+    private ProgressBar mProgressBar;
     private VideoView mVideoView;
     private ImageView iv_play;
     private int mPositionWhenPaused = -1;
@@ -29,12 +34,15 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setBackgroundColor(Color.BLACK);
         iv_play = (ImageView) findViewById(R.id.iv_play);
+        mProgressBar = (ProgressBar) findViewById(R.id.loading);
         mMediaController = new MediaController(this);
         mVideoView.setOnCompletionListener(this);
         mVideoView.setOnPreparedListener(this);
-        mVideoView.setMediaController(mMediaController);
+        //mVideoView.setMediaController(mMediaController);
         picture_left_back.setOnClickListener(this);
         iv_play.setOnClickListener(this);
+        MyUtilHelper.hideBottomUIMenu(this);
+        mVideoView.setOnClickListener(this);
     }
 
 
@@ -43,6 +51,7 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         // Play Video
         mVideoView.setVideoPath(video_path);
         mVideoView.start();
+        mProgressBar.setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -90,8 +99,9 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.picture_left_back) {
+        if (id == R.id.picture_left_back||id==R.id.video_view) {
             finish();
+            overridePendingTransition(0, R.anim.a3);
         } else if (id == R.id.iv_play) {
             mVideoView.start();
             iv_play.setVisibility(View.INVISIBLE);
@@ -119,6 +129,7 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
                 if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
                     // video started
                     mVideoView.setBackgroundColor(Color.TRANSPARENT);
+                    mProgressBar.setVisibility(View.GONE);
                     return true;
                 }
                 return false;
