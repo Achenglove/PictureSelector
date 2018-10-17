@@ -180,6 +180,7 @@ public final class PictureSelector {
             Intent intent = new Intent(getActivity(), PictureVideoPlayActivity.class);
             intent.putExtra("video_path", path);
             getActivity().startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.a5, 0);
         }
     }
 

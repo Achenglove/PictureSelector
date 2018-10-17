@@ -150,7 +150,7 @@ public class PictureBaseActivity extends FragmentActivity {
     }
 
     /**
-     * loading dialog
+     * video_loading dialog
      */
     protected void showPleaseDialog() {
         if (!isFinishing()) {
@@ -175,7 +175,7 @@ public class PictureBaseActivity extends FragmentActivity {
     }
 
     /**
-     * compress loading dialog
+     * compress video_loading dialog
      */
     protected void showCompressDialog() {
         if (!isFinishing()) {

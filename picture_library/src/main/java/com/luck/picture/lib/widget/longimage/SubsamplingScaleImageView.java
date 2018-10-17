@@ -62,7 +62,7 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
- * Displays an image subsampled as necessary to avoid loading too much image data into memory. After a pinch to zoom in,
+ * Displays an image subsampled as necessary to avoid video_loading too much image data into memory. After a pinch to zoom in,
  * a set of image tiles subsampled at higher resolution are loaded and displayed over the base layer. During pinch and
  * zoom, tiles off screen or higher/lower resolution than required are discarded from memory.
  *
@@ -162,7 +162,7 @@ public class SubsamplingScaleImageView extends View {
     // Min scale allowed (prevent infinite zoom)
     private float minScale = minScale();
 
-    // Density to reach before loading higher resolution tiles
+    // Density to reach before video_loading higher resolution tiles
     private int minimumTileDpi = -1;
 
     // Pan limiting style
@@ -333,7 +333,7 @@ public class SubsamplingScaleImageView extends View {
 
     /**
      * Sets the image orientation. It's best to call this before setting the image file or asset, because it may waste
-     * loading of tiles. However, this can be freely called at any time.
+     * video_loading of tiles. However, this can be freely called at any time.
      */
     public final void setOrientation(int orientation) {
         if (!VALID_ORIENTATIONS.contains(orientation)) {
@@ -356,7 +356,7 @@ public class SubsamplingScaleImageView extends View {
     /**
      * Set the image source from a bitmap, resource, asset, file or other URI, starting with a given orientation
      * setting, scale and center. This is the best method to use when you want scale and center to be restored
-     * after screen orientation change; it avoids any redundant loading of tiles in the wrong orientation.
+     * after screen orientation change; it avoids any redundant video_loading of tiles in the wrong orientation.
      * @param imageSource Image source.
      * @param state State to be restored. Nullable.
      */
@@ -382,7 +382,7 @@ public class SubsamplingScaleImageView extends View {
      * Set the image source from a bitmap, resource, asset, file or other URI, providing a preview image to be
      * displayed until the full size image is loaded, starting with a given orientation setting, scale and center.
      * This is the best method to use when you want scale and center to be restored after screen orientation change;
-     * it avoids any redundant loading of tiles in the wrong orientation.
+     * it avoids any redundant video_loading of tiles in the wrong orientation.
      *
      * You must declare the dimensions of the full size image by calling {@link ImageSource#dimensions(int, int)}
      * on the imageSource object. The preview source will be ignored if you don't provide dimensions,
@@ -933,7 +933,7 @@ public class SubsamplingScaleImageView extends View {
             return;
         }
 
-        // When using tiles, on first render with no tile map ready, initialise it and kick off async base image loading.
+        // When using tiles, on first render with no tile map ready, initialise it and kick off async base image video_loading.
         if (tileMap == null && decoder != null) {
             initialiseBaseLayer(getMaxBitmapDimensions(canvas));
         }
@@ -1194,7 +1194,7 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Called on first draw when the view has dimensions. Calculates the initial sample size and starts async loading of
+     * Called on first draw when the view has dimensions. Calculates the initial sample size and starts async video_loading of
      * the base layer image - the whole source subsampled as necessary.
      */
     private synchronized void initialiseBaseLayer(Point maxTileDimensions) {
@@ -2365,7 +2365,7 @@ public class SubsamplingScaleImageView extends View {
      * resolution tiles should be loaded. Using a lower number will on average use less memory but result in a lower
      * quality image. 160-240dpi will usually be enough. This should be called before setting the image source,
      * because it affects which tiles get loaded. When using an untiled source image this method has no effect.
-     * @param minimumTileDpi Tile loading threshold.
+     * @param minimumTileDpi Tile video_loading threshold.
      */
     public void setMinimumTileDpi(int minimumTileDpi) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -2425,7 +2425,7 @@ public class SubsamplingScaleImageView extends View {
     /**
      * Call to find whether the view is initialised, has dimensions, and will display an image on
      * the next draw. If a preview has been provided, it may be the preview that will be displayed
-     * and the full size image may still be loading. If no preview was provided, this is called once
+     * and the full size image may still be video_loading. If no preview was provided, this is called once
      * the base layer tiles of the full size image are loaded.
      */
     public final boolean isReady() {
@@ -2606,10 +2606,10 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Toggle parallel loading. When enabled, tiles are loaded using the thread pool executor available
-     * in SDK 11+. In older versions this has no effect. Parallel loading may use more memory and there
-     * is a possibility that it will make the tile loading unreliable, but it reduces the chances of
-     * an app's background processes blocking loading.
+     * Toggle parallel video_loading. When enabled, tiles are loaded using the thread pool executor available
+     * in SDK 11+. In older versions this has no effect. Parallel video_loading may use more memory and there
+     * is a possibility that it will make the tile video_loading unreliable, but it reduces the chances of
+     * an app's background processes blocking video_loading.
      * @param parallelLoadingEnabled Whether to run AsyncTasks using a thread pool executor.
      */
     public void setParallelLoadingEnabled(boolean parallelLoadingEnabled) {
@@ -2905,7 +2905,7 @@ public class SubsamplingScaleImageView extends View {
         /**
          * Called when the dimensions of the image and view are known, and either a preview image,
          * the full size image, or base layer tiles are loaded. This indicates the scale and translate
-         * are known and the next draw will display an image. This event can be used to hide a loading
+         * are known and the next draw will display an image. This event can be used to hide a video_loading
          * graphic, or inform a subclass that it is safe to draw overlays.
          */
         void onReady();
@@ -2928,7 +2928,7 @@ public class SubsamplingScaleImageView extends View {
         void onPreviewLoadError(Exception e);
 
         /**
-         * Indicates an error initiliasing the decoder when using a tiling, or when loading the full
+         * Indicates an error initiliasing the decoder when using a tiling, or when video_loading the full
          * size bitmap when tiling is disabled. This method cannot be relied upon; certain encoding
          * types of supported image formats can result in corrupt or blank images being loaded and
          * displayed with no detectable error.
