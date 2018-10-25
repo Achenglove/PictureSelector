@@ -109,7 +109,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                             break;
                         case 2:
                             // 预览视频
-                            PictureSelector.create(SecondActivity.this).externalPictureVideo(media.getPath());
+                            PictureSelector.create(SecondActivity.this).externalPictureVideo(media.getPath(),"http://pic24.photophoto.cn/20120831/0038038066142800_b.jpg");
                             overridePendingTransition(R.anim.a5, 0);
                             break;
                         case 3:

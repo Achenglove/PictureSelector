@@ -183,7 +183,20 @@ public final class PictureSelector {
             getActivity().overridePendingTransition(R.anim.a5, 0);
         }
     }
-
+    /**
+     * set preview video
+     *
+     * @param path
+     */
+    public void externalPictureVideo(String path,String cover) {
+        if (!DoubleUtils.isFastDoubleClick()) {
+            Intent intent = new Intent(getActivity(), PictureVideoPlayActivity.class);
+            intent.putExtra("video_path", path);
+            intent.putExtra("cover_path", cover);
+            getActivity().startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.a5, 0);
+        }
+    }
     /**
      * set preview audio
      *

@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,11 +14,12 @@ import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.tools.MyUtilHelper;
 
 public class PictureVideoPlayActivity extends PictureBaseActivity implements MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
-    private String video_path = "";
-    private ImageView picture_left_back;
+    private String video_path = "",cover_path="";
+    private ImageView picture_left_back, videoCover;
     private MediaController mMediaController;
     private ProgressBar mProgressBar;
     private VideoView mVideoView;
@@ -30,8 +32,10 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         super.onCreate(savedInstanceState);
         setContentView(R.layout.picture_activity_video_play);
         video_path = getIntent().getStringExtra("video_path");
+
         picture_left_back = (ImageView) findViewById(R.id.picture_left_back);
         mVideoView = (VideoView) findViewById(R.id.video_view);
+        videoCover = findViewById(R.id.video_cover);
         mVideoView.setBackgroundColor(Color.BLACK);
         iv_play = (ImageView) findViewById(R.id.iv_play);
         mProgressBar = (ProgressBar) findViewById(R.id.loading);
@@ -44,6 +48,11 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         MyUtilHelper.hideBottomUIMenu(this);
         mVideoView.setOnClickListener(this);
         findViewById(R.id.main_layout).setOnClickListener(this);
+        if(getIntent().hasExtra("cover_path")) {
+            cover_path = getIntent().getStringExtra("cover_path");
+            //Log.d("Acheng","视频地址:"+cover_path);
+            Glide.with(this).load(cover_path).into(videoCover);
+        }
     }
 
 
@@ -86,7 +95,9 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
 
     @Override
     public boolean onError(MediaPlayer player, int arg1, int arg2) {
-        return false;
+        mVideoView.stopPlayback(); //播放异常，则停止播放，防止弹窗使界面阻塞
+        mProgressBar.setVisibility(View.GONE);
+        return true;
     }
 
     @Override
@@ -106,10 +117,10 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         } else if (id == R.id.iv_play) {
             mVideoView.start();
             iv_play.setVisibility(View.INVISIBLE);
-        }else if (id == R.id.video_view) {
+        } else if (id == R.id.video_view) {
             finish();
             overridePendingTransition(0, R.anim.a3);
-        }else if (id == R.id.main_layout) {
+        } else if (id == R.id.main_layout) {
             finish();
             overridePendingTransition(0, R.anim.a3);
         }
@@ -137,6 +148,7 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
                     // video started
                     mVideoView.setBackgroundColor(Color.TRANSPARENT);
                     mProgressBar.setVisibility(View.GONE);
+                    videoCover.setVisibility(View.GONE);
                     return true;
                 }
                 return false;
