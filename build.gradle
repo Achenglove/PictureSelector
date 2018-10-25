@@ -4,11 +4,11 @@ buildscript {
     repositories {
         jcenter()
         google()
-        mavenCentral()
+        maven { url 'https://maven.google.com'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.android.tools.external.com-intellij:intellij-core:26.0.1'
+        classpath 'com.android.tools.external.com-intellij:intellij-core:26.2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,14 +16,13 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
-        maven { url "https://jitpack.io" }
-        mavenCentral()
-        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
-        maven {
-            url "https://maven.google.com"
+        flatDir {
+            dirs 'libs'
         }
+        jcenter()
         google()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.google.com'}
     }
 }
 
