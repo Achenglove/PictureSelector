@@ -2,9 +2,10 @@
 apply from: "config.gradle"
 buildscript {
     repositories {
-        jcenter()
         google()
         maven { url 'https://maven.google.com'}
+        jcenter()
+        mavenCentral() //在下面
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -19,10 +20,11 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
-        jcenter()
         google()
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.google.com'}
+        jcenter()
+        mavenCentral() //在下面
     }
 }
 
