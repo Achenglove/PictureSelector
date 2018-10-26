@@ -19,6 +19,6 @@ public class App extends Application {
             Log.d("App", "In LeakCanary Analyzer Process");
             return;
         }
-        LeakCanary.install(this);
+        //LeakCanary.install(this);
     }
 }
