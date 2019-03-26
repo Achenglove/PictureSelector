@@ -36,6 +36,7 @@
         android:src="@drawable/picture_back" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/video_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

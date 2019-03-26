@@ -44,8 +44,8 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         iv_play = (ImageView) findViewById(R.id.iv_play);
         mProgressBar = (ProgressBar) findViewById(R.id.loading);
         mMediaController = new MediaController(this);
-        mVideoView.setOnCompletionListener(this);
-        mVideoView.setOnPreparedListener(this);
+//        mVideoView.setOnCompletionListener(this);
+//        mVideoView.setOnPreparedListener(this);
         //mVideoView.setMediaController(mMediaController);
         picture_left_back.setOnClickListener(this);
         iv_play.setOnClickListener(this);
@@ -55,9 +55,10 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         if (getIntent().hasExtra("cover_path")) {
             cover_path = getIntent().getStringExtra("cover_path");
             //Log.d("Acheng","视频地址:"+cover_path);
-            Glide.with(this).load(cover_path).into(videoCover);
+            Glide.with(this).load(cover_path).into(jzvdStd.thumbImageView);
         }
         jzvdStd.fullscreenButton.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -76,8 +77,8 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
     @Override
     public void onPause() {
         // Stop video when the activity is pause.
-        mPositionWhenPaused = mVideoView.getCurrentPosition();
-        mVideoView.stopPlayback();
+//        mPositionWhenPaused = mVideoView.getCurrentPosition();
+//        mVideoView.stopPlayback();
         Jzvd.resetAllVideos();
         super.onPause();
     }
@@ -93,10 +94,10 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
     @Override
     public void onResume() {
         // Resume video player
-        if (mPositionWhenPaused >= 0) {
-            mVideoView.seekTo(mPositionWhenPaused);
-            mPositionWhenPaused = -1;
-        }
+//        if (mPositionWhenPaused >= 0) {
+//            mVideoView.seekTo(mPositionWhenPaused);
+//            mPositionWhenPaused = -1;
+//        }
 
         super.onResume();
     }
