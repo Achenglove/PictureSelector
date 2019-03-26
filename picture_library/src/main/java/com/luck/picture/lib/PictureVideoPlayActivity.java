@@ -17,12 +17,16 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.tools.MyUtilHelper;
 
+import cn.jzvd.Jzvd;
+import cn.jzvd.JzvdStd;
+
 public class PictureVideoPlayActivity extends PictureBaseActivity implements MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
-    private String video_path = "",cover_path="";
+    private String video_path = "", cover_path = "";
     private ImageView picture_left_back, videoCover;
     private MediaController mMediaController;
     private ProgressBar mProgressBar;
     private VideoView mVideoView;
+    private JzvdStd jzvdStd;
     private ImageView iv_play;
     private int mPositionWhenPaused = -1;
 
@@ -32,7 +36,7 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         super.onCreate(savedInstanceState);
         setContentView(R.layout.picture_activity_video_play);
         video_path = getIntent().getStringExtra("video_path");
-
+        jzvdStd = findViewById(R.id.videoplayer);
         picture_left_back = (ImageView) findViewById(R.id.picture_left_back);
         mVideoView = (VideoView) findViewById(R.id.video_view);
         videoCover = findViewById(R.id.video_cover);
@@ -48,20 +52,24 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         MyUtilHelper.hideBottomUIMenu(this);
         mVideoView.setOnClickListener(this);
         findViewById(R.id.main_layout).setOnClickListener(this);
-        if(getIntent().hasExtra("cover_path")) {
+        if (getIntent().hasExtra("cover_path")) {
             cover_path = getIntent().getStringExtra("cover_path");
             //Log.d("Acheng","视频地址:"+cover_path);
             Glide.with(this).load(cover_path).into(videoCover);
         }
+        jzvdStd.fullscreenButton.setVisibility(View.INVISIBLE);
+
     }
 
 
     @Override
     public void onStart() {
         // Play Video
-        mVideoView.setVideoPath(video_path);
-        mVideoView.start();
-        mProgressBar.setVisibility(View.VISIBLE);
+//        mVideoView.setVideoPath(video_path);
+//        mVideoView.start();
+//        mProgressBar.setVisibility(View.VISIBLE);
+        jzvdStd.setUp(video_path, "", Jzvd.SCREEN_NORMAL);
+        jzvdStd.startVideo();
         super.onStart();
     }
 
@@ -70,7 +78,7 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         // Stop video when the activity is pause.
         mPositionWhenPaused = mVideoView.getCurrentPosition();
         mVideoView.stopPlayback();
-
+        Jzvd.resetAllVideos();
         super.onPause();
     }
 
@@ -120,6 +128,9 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         } else if (id == R.id.video_view) {
             finish();
             overridePendingTransition(0, R.anim.a3);
+        } else if (id == R.id.videoplayer) {
+            finish();
+            overridePendingTransition(0, R.anim.a3);
         } else if (id == R.id.main_layout) {
             finish();
             overridePendingTransition(0, R.anim.a3);
@@ -155,4 +166,14 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if (Jzvd.backPress()) {
+            finish();
+            overridePendingTransition(0, R.anim.a3);
+        }
+        super.onBackPressed();
+    }
+
 }

@@ -51,6 +51,8 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     private int themeId;
     private int chooseMode = PictureMimeType.ofAll();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

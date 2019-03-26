@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -28,4 +32,5 @@ dependencies {
     compile "com.github.bumptech.glide:glide:${cfgs.glide}"
     compile "io.reactivex.rxjava2:rxjava:${cfgs.rxjava}"
     compile "io.reactivex.rxjava2:rxandroid:${cfgs.rxandroid}"
+    compile 'cn.jzvd:jiaozivideoplayer:7.0_preview'
 }

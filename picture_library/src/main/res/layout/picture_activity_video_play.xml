@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main_layout"
     android:background="@color/black">
 
     <VideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <cn.jzvd.JzvdStd
+        android:id="@+id/videoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
     <ImageView
@@ -17,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/ic_video_play"
+
         android:visibility="invisible" />
 
     <ImageView
@@ -26,19 +34,21 @@
         android:layout_marginTop="15dp"
         android:padding="15dp"
         android:src="@drawable/picture_back" />
+
     <ImageView
         android:id="@+id/video_cover"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
     <ProgressBar
-        android:visibility="visible"
         android:id="@+id/loading"
         android:layout_width="30dp"
-        android:layout_centerInParent="true"
         android:layout_height="30dp"
+        android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:indeterminateBehavior="repeat"
-        android:indeterminateDrawable="@drawable/video_loading" />
+        android:indeterminateDrawable="@drawable/video_loading"
+        android:visibility="gone" />
 
 </RelativeLayout>
