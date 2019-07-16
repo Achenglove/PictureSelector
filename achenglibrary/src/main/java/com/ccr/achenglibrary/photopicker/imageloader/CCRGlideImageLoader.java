@@ -48,8 +48,7 @@ public class CCRGlideImageLoader extends CCRImageLoader {
     public void display(final ImageView imageView, String path, @DrawableRes int loadingResId, @DrawableRes int failResId, int width, int height, final DisplayDelegate delegate) {
         final String finalPath = getPath(path);
         Activity activity = getActivity(imageView);
-        RequestOptions options = new RequestOptions()
-                .placeholder(loadingResId).error(failResId).override(width, height).dontAnimate();
+        RequestOptions options = new RequestOptions().placeholder(loadingResId).error(failResId).override(width, height).dontAnimate();
         Glide.with(activity).load(finalPath).apply(options).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {

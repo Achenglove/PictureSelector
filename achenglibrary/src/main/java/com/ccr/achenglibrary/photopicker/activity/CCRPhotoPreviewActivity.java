@@ -160,7 +160,7 @@ public class CCRPhotoPreviewActivity extends CCRPPToolbarActivity implements Pho
 
     @Override
     protected void setListener() {
-        mContentHvp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mContentHvp.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 renderTitleTv();

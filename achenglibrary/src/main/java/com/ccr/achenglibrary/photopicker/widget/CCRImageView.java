@@ -183,7 +183,7 @@ public class CCRImageView extends AppCompatImageView {
 
         RoundedBitmapDrawable circleDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), dst);
         circleDrawable.setAntiAlias(true);
-        circleDrawable.setCircular(true);
+        //circleDrawable.setCircular(true);
         return circleDrawable;
     }
 

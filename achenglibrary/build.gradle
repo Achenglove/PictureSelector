@@ -17,13 +17,12 @@ android {
 
 dependencies {
     //noinspection GradleCompatible
-    compile 'com.android.support:appcompat-v7:26.1.0'
-
-    provided 'com.android.support:recyclerview-v7:26.1.0'
-    //    provided 'cn.bingoogolapple:bga-adapter:1.1.8@aar'
-    provided 'com.github.bumptech.glide:glide:4.5.0'
-    provided 'com.squareup.picasso:picasso:2.5.2'
-    provided 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    provided 'org.xutils:xutils:3.3.36'
+    compile "com.android.support:appcompat-v7:${cfgs.androidSupportVersion}"
+    //noinspection GradleCompatible
+    compile "com.android.support:recyclerview-v7:${cfgs.androidSupportVersion}"
+    compile "com.github.bumptech.glide:glide:${cfgs.glide}"
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile 'org.xutils:xutils:3.3.36'
     implementation project(':picture_library')
 }

@@ -1,6 +1,7 @@
 package com.ccr.pictureselector.second;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,7 +34,7 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class SecondActivity extends AppCompatActivity implements View.OnClickListener,
+public class SecondActivity extends Activity implements View.OnClickListener,
         RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
     private final static String TAG = SecondActivity.class.getSimpleName();
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -107,16 +108,16 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                         case 1:
                             // 预览图片 可自定长按保存路径
                             //PictureSelector.create(SecondActivity.this).themeStyle(themeId).externalPicturePreview(position, "/custom_file", selectList);
-                            PictureSelector.create(SecondActivity.this).themeStyle(themeId).openExternalPreview(position, selectList);
+                            PictureSelector.create((Activity) SecondActivity.this).themeStyle(themeId).openExternalPreview(position, selectList);
                             break;
                         case 2:
                             // 预览视频
-                            PictureSelector.create(SecondActivity.this).externalPictureVideo(media.getPath());
+                            PictureSelector.create((Activity)SecondActivity.this).externalPictureVideo(media.getPath());
                             overridePendingTransition(R.anim.a5, 0);
                             break;
                         case 3:
                             // 预览音频
-                            PictureSelector.create(SecondActivity.this).externalPictureAudio(media.getPath());
+                            PictureSelector.create((Activity)SecondActivity.this).externalPictureAudio(media.getPath());
                             break;
                     }
                 }

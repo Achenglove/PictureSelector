@@ -159,7 +159,7 @@ public class CCRPhotoPickerPreviewActivity extends CCRPPToolbarActivity implemen
             }
         });
 
-        mContentHvp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mContentHvp.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 handlePageSelectedStatus();
