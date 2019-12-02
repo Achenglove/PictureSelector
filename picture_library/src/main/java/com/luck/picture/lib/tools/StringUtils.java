@@ -1,0 +1,63 @@
+package com.luck.picture.lib.tools;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.widget.TextView;
+
+import com.luck.picture.lib.R;
+import com.luck.picture.lib.config.PictureMimeType;
+
+import java.util.regex.Pattern;
+
+/**
+ * @author：luck
+ * @data：2017/5/25 19:12
+ * @描述: String Utils
+ */
+public class StringUtils {
+
+    public static void tempTextFont(TextView tv, int mimeType) {
+        String text = tv.getText().toString().trim();
+        String str = mimeType == PictureMimeType.ofAudio() ?
+                tv.getContext().getString(R.string.picture_empty_audio_title)
+                : tv.getContext().getString(R.string.picture_empty_title);
+        String sumText = str + text;
+        Spannable placeSpan = new SpannableString(sumText);
+        placeSpan.setSpan(new RelativeSizeSpan(0.8f), str.length(), sumText.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv.setText(placeSpan);
+    }
+
+    /**
+     * 匹配数值
+     *
+     * @param str
+     * @return
+     */
+    public static int stringToInt(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]+$");
+        return pattern.matcher(str).matches() ? Integer.valueOf(str) : 0;
+    }
+
+    /**
+     * 根据类型获取相应的Toast文案
+     *
+     * @param context
+     * @param mimeType
+     * @param maxSelectNum
+     * @return
+     */
+    @SuppressLint("StringFormatMatches")
+    public static String getToastMsg(Context context, String mimeType, int maxSelectNum) {
+        if (PictureMimeType.eqVideo(mimeType)) {
+            return context.getString(R.string.picture_message_video_max_num, maxSelectNum);
+        } else if (PictureMimeType.eqAudio(mimeType)) {
+            return context.getString(R.string.picture_message_audio_max_num, maxSelectNum);
+        } else {
+            return context.getString(R.string.picture_message_max_num, maxSelectNum);
+        }
+    }
+}
