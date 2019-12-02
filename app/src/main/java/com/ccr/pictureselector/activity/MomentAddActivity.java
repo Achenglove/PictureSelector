@@ -29,6 +29,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
+ * Acheng
  * 你自己项目里「可以不继承 CCRPPToolbarActivity」，我在这里继承 CCRPPToolbarActivity 只是为了方便写 Demo
  */
 public class MomentAddActivity extends CCRPPToolbarActivity implements EasyPermissions.PermissionCallbacks, CCRSortableNinePhotoLayout.Delegate {
