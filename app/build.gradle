@@ -33,5 +33,7 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     implementation 'pub.devrel:easypermissions:0.2.1'
-    implementation project(path: ':achenglibrary')
+    //implementation 'cn.bingoogolapple:bga-baseadapter:2.0.0@aar'
+    implementation project(path: ':library')
+    implementation project(path: ':baseadapterlib')
 }

@@ -1,1 +1,2 @@
-include ':app', ':picture_library', ':ucrop', ':achenglibrary'
+include ':app', ':picture_library', ':ucrop', ':library'
+include ':baseadapterlib'

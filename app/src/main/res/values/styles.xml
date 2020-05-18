@@ -1,15 +1,38 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="BaseNoActionBarTheme">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/app_color_grey</item>
-        <item name="colorPrimaryDark">@color/app_color_grey</item>
-        <item name="colorAccent">@color/app_color_grey</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- toolbar（actionbar）背景颜色 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <!-- 底部导航栏的颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/navigationBarColor</item>
     </style>
 
-    <style name="BaseNoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="MatchWrapTv" parent="MatchWrap">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_btn_orange</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:padding">16dp</item>
+    </style>
 
+    <style name="AutoWrapTv" parent="AutoWrap">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_btn_orange</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
     <!--白色主题样式，，注意每一项都不能少-->
     <style name="picture.white.style" parent="BaseNoActionBarTheme">
         <!-- Customize your theme here. -->
@@ -171,26 +194,5 @@
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/picture_orange_oval</item>
     </style>
-
-    <style name="MatchWrapTv" parent="MatchWrap">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/selector_btn_orange</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:onClick">onClick</item>
-        <item name="android:padding">8dp</item>
-    </style>
-    <style name="AutoWrapTv" parent="AutoWrap">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/selector_btn_orange</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:onClick">onClick</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-    </style>
+    <style name="BaseNoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>

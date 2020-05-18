@@ -5,13 +5,7 @@ import android.app.Application;
 import com.squareup.leakcanary.LeakCanary;
 
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.pictureselector
- * email：893855882@qq.com
- * data：2017/4/29
- */
+
 
 public class App extends Application {
     @Override
